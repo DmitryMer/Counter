@@ -1,20 +1,27 @@
-const addToButton = document.getElementById("addToDo");
-const toDoContainer = document.getElementById("ToDoContainer");
-const inputField = document.getElementById("inputField");
+const counter = document.querySelector("#counter");
+const btns = document.querySelectorAll(".btn");
 
-addToButton.addEventListener("click", () => {
-    let paragraph = document.createElement("p");
-    paragraph.innerText = inputField.value;
-    if (!paragraph.innerText) {
-        alert("Введите текст");
-    }
-    toDoContainer.appendChild(paragraph);
-    inputField.value = "";
-    paragraph.addEventListener("click", () => {
-        paragraph.style.textDecoration = "line-through";
-    });
+let count = 0;
 
-    paragraph.addEventListener("dblclick", () => {
-        toDoContainer.removeChild(paragraph);
+btns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+        if (btn.classList.contains("increase")) {
+            count++;
+            counter.innerHTML = count;
+        } else if (btn.classList.contains("decrease")) {
+            count--;
+            counter.innerHTML = count;
+        } else {
+            count = 0;
+            counter.innerHTML = 0;
+        }
+
+        if (count > 0) {
+            counter.style.color = "green";
+        } else if (count == 0) {
+            counter.style.color = "gray";
+        } else {
+            counter.style.color = "red";
+        }
     });
 });
